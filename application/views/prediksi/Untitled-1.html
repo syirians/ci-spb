@@ -1,0 +1,81 @@
+<div class="page-content row">
+    <!-- Page header -->
+<div class="page-header">
+  <div class="page-title">
+  <h3> <?php echo $pageTitle ?> <small><?php echo $pageNote ?></small></h3>
+  </div>
+  <ul class="breadcrumb">
+    <li><a href="<?php echo site_url('dashboard') ?>"> Dashboard </a></li>
+    <li><a href="<?php echo site_url('prediksi') ?>"><?php echo $pageTitle ?></a></li>
+    <li class="active"> Form </li>
+  </ul>      
+</div>
+ 
+   <div class="page-content-wrapper m-t">     
+    <div class="sbox" >
+    <div class="sbox-title" >
+      <h5><?php echo $pageTitle ?> <small><?php echo $pageNote ?></small></h5>
+    </div>
+    <div class="sbox-content" >
+
+      
+     <form action="<?php echo site_url('prediksi/save/'.$row['ID']); ?>" class='form-horizontal'  parsley-validate='true' novalidate='true' method="post" enctype="multipart/form-data" > 
+
+
+<div class="col-md-12">
+						<fieldset><legend> Prediksi</legend>
+									
+								  <div class="form-group  " >
+									<table id="example2" class="table  table-hover">
+              <thead>
+              <tr>
+                <th width="30%">Stok Akhir Dexlite</th>
+                <th width="2%">:</th>
+                <th>
+                
+                </th>
+              </tr>
+              <tr>
+                <th>Rata Rata Penjualan PerShift</th>
+                <th width="2%">:</th>
+                <th>
+               
+                </th>
+              </tr>
+              <tr>
+                <th>Perkiraan Stok Dexlite Habis dalam</th>
+                <th width="2%">:</th>
+                <th></th>
+              </tr>
+              </thead>
+            </table>
+								  </div> </fieldset>
+			</div>
+			
+			
+    
+      <div style="clear:both"></div>  
+        
+     <div class="toolbar-line text-center">    
+      <input type="submit" name="apply" class="btn btn-info btn-sm" value="<?php echo $this->lang->line('core.btn_apply'); ?>" />
+      <input type="submit" name="submit" class="btn btn-primary btn-sm" value="<?php echo $this->lang->line('core.btn_submit'); ?>" />
+      <a href="<?php echo site_url('prediksi');?>" class="btn btn-sm btn-warning"><?php echo $this->lang->line('core.btn_cancel'); ?> </a>
+     </div>
+            
+    </form>
+    
+    </div>
+    </div>
+
+  </div>  
+</div>  
+</div>
+       
+<script type="text/javascript">
+$(document).ready(function() { 
+
+		$("#idProduk").jCombo("<?php echo site_url('prediksi/comboselect?filter=t_produk:idProduk:idProduk') ?>",
+		{  selected_value : '<?php echo $row["idProduk"] ?>' });
+		    
+});
+</script>     

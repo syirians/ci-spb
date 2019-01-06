@@ -1,0 +1,47 @@
+SELECT 
+
+SUM((B1Akhir-B1Awal-B1Tera)+
+ (B2Akhir-B2Awal-B2Tera)+
+ (B3Akhir-B3Awal-B3Tera)+
+ (B4Akhir-B1Awal-B4Tera))
+
+AS Kalkulasi,
+
+SUM((B1Akhir-B1Awal-B1Tera)+
+ (B2Akhir-B2Awal-B2Tera)+
+ (B3Akhir-B3Awal-B3Tera)+
+ (B4Akhir-B1Awal-B4Tera))
+
+AS Rata,
+t_transaksi.* 
+
+
+FROM `t_detail_transaksi` 
+LEFT JOIN t_transaksi 
+ON t_detail_transaksi.Id_Transaksi = t_transaksi.ID 
+WHERE t_transaksi.idProduk='Dex' AND t_detail_transaksi.idProduk='Dex'
+AND t_transaksi.tanggal BETWEEN 
+
+(SELECT DATE_SUB((SELECT MAX(t_transaksi.tanggal) FROM `t_detail_transaksi` 
+LEFT JOIN t_transaksi 
+ON t_detail_transaksi.Id_Transaksi = t_transaksi.ID 
+WHERE t_transaksi.idProduk='Dex' AND t_detail_transaksi.idProduk='Dex'), INTERVAL 7 DAY)) 
+
+AND 
+
+(SELECT MAX(t_transaksi.tanggal) FROM `t_detail_transaksi` 
+LEFT JOIN t_transaksi 
+ON t_detail_transaksi.Id_Transaksi = t_transaksi.ID 
+WHERE t_transaksi.idProduk='Dex' AND t_detail_transaksi.idProduk='Dex')
+
+GROUP BY Tanggal
+ORDER BY t_transaksi.tanggal DESC
+
+\
+SELECT DISTINCT(DATE_FORMAT(TANGGAL,'%M')) AS BULAN,DATE_SUB(LAST_DAY(TANGGAL),INTERVAL DAY(LAST_DAY(TANGGAL))-
+1 DAY) AS 'FIRST DAY',LAST_DAY(TANGGAL) AS 'LAST DAY' FROM t_transaksi where TANGGAL > DATE_SUB(now(), INTERVAL 12 MONTH)
+
+
+SELECT stokAkhir, tanggal FROM t_transaksi WHERE idProduk='DEX' ORDER BY tanggal DESC, ID DESC
+
+SELECT "2018-11-09"-INTERVAL 0 DAY AS tanggal

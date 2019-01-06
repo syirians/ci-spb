@@ -1,0 +1,12 @@
+SELECT 
+    transaksi.tanggal AS Tanggal,
+	produk.namaProduk AS Produk, 
+	((detail.B1Akhir - detail.B1Awal - detail.B1Tera) +
+    (detail.B2Akhir - detail.B2Awal - detail.B2Tera) +
+    (detail.B3Akhir - detail.B3Awal - detail.B3Tera) + 
+    (detail.B4Akhir - detail.B4Awal - detail.B4Tera)) AS Total 
+FROM `t_detail_transaksi` detail 
+INNER JOIN t_transaksi transaksi ON detail.Id_Transaksi = transaksi.ID
+INNER JOIN t_produk produk ON transaksi.idProduk = produk.idProduk
+GROUP BY YEAR(Tanggal), MONTH(Tanggal)
+ORDER BY Tanggal DESC, Produk DESC
